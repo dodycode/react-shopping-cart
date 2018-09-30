@@ -36,16 +36,20 @@ class App extends Component {
   handleRemoveItemFromCart = product => {
     let arrayCart = this.state.cartItems;
     const selectedItemIndex = arrayCart.findIndex(cartItem => cartItem.product.id === product.id);
-    let selectedItem = arrayCart[selectedItemIndex];
-    if(selectedItem.quantity > 1) {
-      selectedItem.quantity - 1;
+    const selectedItem = arrayCart[selectedItemIndex];
+    console.log(selectedItem.quantity);
+
+    if (selectedItem.quantity > 1) {
+      // console.log(selectedItem.quantity);
+      selectedItem.quantity--;
     }else{
       arrayCart.splice(selectedItemIndex, 1);
     }
+    this.setState({ cartItems: arrayCart });
   }
 
   componentDidMount() {
-    fetch(`http://product-list.glitch.me/`)
+    fetch(`https://product-list.glitch.me/`)
     .then(response => response.json())
     .then(data => {
       this.setState({ products: data })
